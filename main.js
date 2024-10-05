@@ -1,8 +1,7 @@
 "use strict"
 
-const API_KEY = "AIzaSyCoWxPRSKVgHAcPYys-BPcNR01XX_IFG3s"
 
-const fallbackVideos = [
+const ifApiBlocked = [
   {
     id: { videoId: "09R8_2nJtjg" },
     snippet: {
@@ -53,7 +52,7 @@ const fallbackVideos = [
 function getVideos() {
   const search = document.querySelector("[name='search-bar']").value
   getWiki(search) 
-  const videoUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&videoEmbeddable=true&type=video&key=${API_KEY}&q=${search}`
+  const videoUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&videoEmbeddable=true&type=video&key=${"AIzaSyCoWxPRSKVgHAcPYys-BPcNR01XX_IFG3s"}&q=${search}`
 
   axios
     .get(videoUrl)
@@ -64,7 +63,7 @@ function getVideos() {
     })
     .catch((error) => {
       error
-      useFallbackVideos() 
+      ApiBlocked() 
     })
 }
 
@@ -117,9 +116,9 @@ function renderWikiInfo(results) {
   elInfo.innerHTML = strWikiResult
 }
 
-function useFallbackVideos() {
-  renderOptions(fallbackVideos) 
-  renderVideo(fallbackVideos[0].id.videoId) 
+function ApiBlocked() {
+  renderOptions(ifApiBlocked) 
+  renderVideo(ifApiBlocked[0].id.videoId) 
 }
 
 
